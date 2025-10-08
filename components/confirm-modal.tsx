@@ -29,7 +29,7 @@ export function ConfirmModal({
   return (
     <div className="flex flex-col items-center justify-center">
       <AlertDialog open={open} onOpenChange={onOpenChange}>
-        <AlertDialogContent className="flex flex-col items-center justify-center  w-[200px] h-[220px] sm:w-[500px]  sm:h-[300px]  ">
+        <AlertDialogContent className="flex flex-col items-center justify-center  max-w-md">
           <AlertDialogHeader>
             <img
               src="/img/user-plus.png"
