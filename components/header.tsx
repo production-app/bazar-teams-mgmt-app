@@ -1,7 +1,7 @@
-import { Search, Bell, Grid3x3, Menu } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Search, Bell, Grid3x3, Menu } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function Header() {
   return (
@@ -13,16 +13,22 @@ export function Header() {
 
         {/* Logo */}
         <div className="flex items-center gap-2">
-             <img src="/img/logo.png" alt="Logo" className="" />
+          <img src="/img/logo.png" alt="Logo" className="" />
         </div>
 
         <div className="relative flex-1 max-w-md hidden lg:block">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input placeholder="Search for anything" className="pl-9 bg-muted/50 border-0" />
+          <Input
+            placeholder="Search for anything"
+            className="pl-9 bg-muted/50 border-0"
+          />
         </div>
 
         <nav className="hidden xl:flex items-center gap-1 flex-1 justify-center">
-          <Button variant="ghost" size="sm" className="text-primary font-medium">
+          <Button
+            variant="outline"
+            size="sm"
+            className="text-primary font-medium bg-blue-400/10 hover:bg-blue-400/5">
             Home
           </Button>
           <Button variant="ghost" size="sm">
@@ -51,14 +57,21 @@ export function Header() {
             <Bell className="h-5 w-5" />
           </Button>
           <Button variant="ghost" size="icon" className="hidden md:flex">
-            <Grid3x3 className="h-5 w-5" />
+            <img
+              src="/img/more.png"
+              alt="more"
+              className="h-5 w-5 inline ml-1"
+              aria-label="dropdown arrow"
+            />
           </Button>
           <Avatar className="h-8 w-8">
-            <AvatarImage src="/placeholder.svg" />
-            <AvatarFallback className="bg-primary text-primary-foreground">U</AvatarFallback>
+            <AvatarImage src="/img/wrapper.png" />
+            <AvatarFallback className="bg-primary text-primary-foreground">
+              U
+            </AvatarFallback>
           </Avatar>
         </div>
       </div>
     </header>
-  )
+  );
 }
