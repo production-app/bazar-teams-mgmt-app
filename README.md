@@ -154,45 +154,45 @@ To test error handling and failure scenarios, you can modify the store actions:
 
 Add random failure logic to any action:
 
-\`\`\`typescript
+```typescript
 createTeam: async (teamData) => {
-set({ isLoading: true })
-await delay(500)
+  set({ isLoading: true });
+  await delay(500);
 
-// Simulate 30% failure rate
-if (Math.random() < 0.3) {
-set({ isLoading: false })
-throw new Error("Failed to create team")
-}
+  // Simulate 30% failure rate
+  if (Math.random() < 0.3) {
+    set({ isLoading: false });
+    throw new Error("Failed to create team");
+  }
 
-// ... rest of success logic
-}
-\`\`\`
+  // ... rest of success logic
+};
+```
 
 #### 2. Conditional Failures
 
 Fail based on specific conditions:
 
-\`\`\`typescript
+```typescript
 updateTeam: async (id, teamData) => {
-set({ isLoading: true })
-await delay(500)
+  set({ isLoading: true });
+  await delay(500);
 
-// Fail if team name is too short
-if (teamData.name && teamData.name.length < 3) {
-set({ isLoading: false })
-throw new Error("Team name must be at least 3 characters")
-}
+  // Fail if team name is too short
+  if (teamData.name && teamData.name.length < 3) {
+    set({ isLoading: false });
+    throw new Error("Team name must be at least 3 characters");
+  }
 
-// ... rest of success logic
-}
-\`\`\`
+  // ... rest of success logic
+};
+```
 
 #### 3. Network Timeout Simulation
 
 Simulate slow or timeout scenarios:
 
-\`\`\`typescript
+```typescript
 deleteTeam: async (id) => {
 set({ isLoading: true })
 
@@ -212,31 +212,31 @@ set({ isLoading: false })
 throw error
 }
 }
-\`\`\`
+```
 
 #### 4. Specific Error Codes
 
 Simulate different HTTP error responses:
 
-\`\`\`typescript
+```typescript
 fetchTeams: async () => {
-set({ isLoading: true })
-await delay(500)
+  set({ isLoading: true });
+  await delay(500);
 
-// Simulate different error scenarios
-const errorType = Math.random()
+  // Simulate different error scenarios
+  const errorType = Math.random();
 
-if (errorType < 0.1) {
-set({ isLoading: false })
-throw new Error("401: Unauthorized")
-} else if (errorType < 0.2) {
-set({ isLoading: false })
-throw new Error("500: Internal Server Error")
-}
+  if (errorType < 0.1) {
+    set({ isLoading: false });
+    throw new Error("401: Unauthorized");
+  } else if (errorType < 0.2) {
+    set({ isLoading: false });
+    throw new Error("500: Internal Server Error");
+  }
 
-// ... rest of success logic
-}
-\`\`\`
+  // ... rest of success logic
+};
+```
 
 ### Testing Error Handling
 
@@ -251,17 +251,17 @@ Once you've added failure simulation, test the UI behavior:
 
 To handle errors in components, wrap store actions in try-catch:
 
-\`\`\`typescript
+```typescript
 const handleSubmit = async (data: TeamFormData) => {
-try {
-await createTeam(data)
-setShowNotification(true)
-} catch (error) {
-console.error("Failed to create team:", error)
-// Show error toast or message to user
-}
-}
-\`\`\`
+  try {
+    await createTeam(data);
+    setShowNotification(true);
+  } catch (error) {
+    console.error("Failed to create team:", error);
+    // Show error toast or message to user
+  }
+};
+```
 
 ## Testing
 
@@ -274,7 +274,7 @@ This project uses Jest and React Testing Library for unit testing. Tests cover:
 
 ### Running Tests
 
-\`\`\`bash
+```bash
 
 # Run all tests
 
@@ -287,7 +287,7 @@ pnpm test:watch
 # Generate coverage report
 
 pnpm test:coverage
-\`\`\`
+```
 
 ### Test Coverage
 
