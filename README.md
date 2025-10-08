@@ -16,60 +16,64 @@ A comprehensive team management application built with Next.js, React, TypeScrip
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - pnpm (recommended) or npm
 
 ### Installation
 
 \`\`\`bash
+
 # Install dependencies
+
 pnpm install
 
 # Run development server
+
 pnpm dev
 
 # Run tests
+
 pnpm test
 
 # Run tests in watch mode
+
 pnpm test:watch
 
 # Generate coverage report
+
 pnpm test:coverage
 \`\`\`
 
 ## Project Structure
 
-\`\`\`
-team-management/
-├── app/                          # Next.js app directory
-│   ├── layout.tsx               # Root layout with theme provider
-│   ├── page.tsx                 # Main page with teams table
-│   └── globals.css              # Global styles and Tailwind config
-├── components/                   # React components
-│   ├── ui/                      # Reusable UI components (shadcn/ui)
-│   ├── teams-table.tsx          # Main data table with CRUD operations
-│   ├── create-team-modal.tsx    # Create team form modal
-│   ├── edit-team-modal.tsx      # Edit team form modal
-│   ├── delete-confirm-modal.tsx # Delete confirmation dialog
-│   ├── confirm-modal.tsx        # Generic confirmation dialog
-│   ├── notification-modal.tsx   # Success notification dialog
-│   ├── header.tsx               # Application header
-│   ├── sub-header.tsx           # Sub-header with actions
-│   └── breadcrumb-nav.tsx       # Breadcrumb navigation
-├── lib/                         # Core application logic
-│   ├── store/
-│   │   └── teams-store.ts       # Zustand state management
-│   ├── schemas/
-│   │   └── team-schema.ts       # Zod validation schemas
-│   ├── types.ts                 # TypeScript type definitions
-│   ├── teams-data.ts            # Mock data generator
-│   └── utils.ts                 # Utility functions
-├── __tests__/                   # Test files
-│   ├── components/              # Component tests
-│   └── lib/                     # Logic and store tests
-└── hooks/                       # Custom React hooks
-\`\`\`
+📁 team-management/
+├── 📁 app/ # Next.js app directory
+│ ├── layout.tsx # Root layout with theme provider
+│ ├── page.tsx # Main page with teams table
+│ └── globals.css # Global styles and Tailwind config
+├── 📁 components/ # React components
+│ ├── 📁 ui/ # Reusable UI components (shadcn/ui)
+│ ├── teams-table.tsx # Main data table with CRUD operations
+│ ├── create-team-modal.tsx # Create team form modal
+│ ├── edit-team-modal.tsx # Edit team form modal
+│ ├── delete-confirm-modal.tsx # Delete confirmation dialog
+│ ├── confirm-modal.tsx # Generic confirmation dialog
+│ ├── notification-modal.tsx # Success notification dialog
+│ ├── header.tsx # Application header
+│ ├── sub-header.tsx # Sub-header with actions
+│ └── breadcrumb-nav.tsx # Breadcrumb navigation
+├── 📁 lib/ # Core application logic
+│ ├── 📁 store/
+│ │ └── teams-store.ts # Zustand state management
+│ ├── 📁 schemas/
+│ │ └── team-schema.ts # Zod validation schemas
+│ ├── types.ts # TypeScript type definitions
+│ ├── teams-data.ts # Mock data generator
+│ └── utils.ts # Utility functions
+├── 📁 **tests**/ # Test files
+│ ├── 📁 components/ # Component tests
+│ └── 📁 lib/ # Logic and store tests
+└── 📁 hooks/ # Custom React hooks
 
 ## State Management Approach
 
@@ -80,6 +84,7 @@ This application uses **Zustand** for state management, providing a simple and p
 The `teams-store.ts` implements a centralized store with the following structure:
 
 #### State
+
 - `teams`: Array of all teams (source of truth)
 - `filteredTeams`: Computed array after filtering and sorting
 - `isLoading`: Loading state for async operations
@@ -89,6 +94,7 @@ The `teams-store.ts` implements a centralized store with the following structure
 - `selectedEntity`: Entity filter selection
 
 #### Actions
+
 - `fetchTeams()`: Load initial team data (simulates API call)
 - `createTeam(team)`: Add a new team
 - `updateTeam(id, data)`: Update existing team
@@ -120,6 +126,7 @@ The application uses mock data and simulated API delays to demonstrate real-worl
 ### Current Implementation
 
 All CRUD operations in `teams-store.ts` include:
+
 - **500ms delay**: Simulates network latency
 - **Loading states**: `isLoading` flag for UI feedback
 - **Success scenarios**: All operations succeed by default
@@ -127,14 +134,14 @@ All CRUD operations in `teams-store.ts` include:
 \`\`\`typescript
 // Example: Create team with simulated delay
 createTeam: async (teamData) => {
-  set({ isLoading: true })
-  await delay(500) // Simulate API call
-  const newTeam = { ...teamData, id: `team-${Date.now()}` }
-  set((state) => ({
-    teams: [...state.teams, newTeam],
-    isLoading: false,
-  }))
-  get().filterAndSortTeams()
+set({ isLoading: true })
+await delay(500) // Simulate API call
+const newTeam = { ...teamData, id: `team-${Date.now()}` }
+set((state) => ({
+teams: [...state.teams, newTeam],
+isLoading: false,
+}))
+get().filterAndSortTeams()
 }
 \`\`\`
 
@@ -148,16 +155,16 @@ Add random failure logic to any action:
 
 \`\`\`typescript
 createTeam: async (teamData) => {
-  set({ isLoading: true })
-  await delay(500)
-  
-  // Simulate 30% failure rate
-  if (Math.random() < 0.3) {
-    set({ isLoading: false })
-    throw new Error("Failed to create team")
-  }
-  
-  // ... rest of success logic
+set({ isLoading: true })
+await delay(500)
+
+// Simulate 30% failure rate
+if (Math.random() < 0.3) {
+set({ isLoading: false })
+throw new Error("Failed to create team")
+}
+
+// ... rest of success logic
 }
 \`\`\`
 
@@ -167,16 +174,16 @@ Fail based on specific conditions:
 
 \`\`\`typescript
 updateTeam: async (id, teamData) => {
-  set({ isLoading: true })
-  await delay(500)
-  
-  // Fail if team name is too short
-  if (teamData.name && teamData.name.length < 3) {
-    set({ isLoading: false })
-    throw new Error("Team name must be at least 3 characters")
-  }
-  
-  // ... rest of success logic
+set({ isLoading: true })
+await delay(500)
+
+// Fail if team name is too short
+if (teamData.name && teamData.name.length < 3) {
+set({ isLoading: false })
+throw new Error("Team name must be at least 3 characters")
+}
+
+// ... rest of success logic
 }
 \`\`\`
 
@@ -186,23 +193,23 @@ Simulate slow or timeout scenarios:
 
 \`\`\`typescript
 deleteTeam: async (id) => {
-  set({ isLoading: true })
-  
-  // Simulate very slow network (5 seconds)
-  await delay(5000)
-  
-  // Or simulate timeout
-  const timeout = new Promise((_, reject) => 
-    setTimeout(() => reject(new Error("Request timeout")), 3000)
-  )
-  
-  try {
-    await Promise.race([delay(5000), timeout])
-    // ... rest of success logic
-  } catch (error) {
-    set({ isLoading: false })
-    throw error
-  }
+set({ isLoading: true })
+
+// Simulate very slow network (5 seconds)
+await delay(5000)
+
+// Or simulate timeout
+const timeout = new Promise((\_, reject) =>
+setTimeout(() => reject(new Error("Request timeout")), 3000)
+)
+
+try {
+await Promise.race([delay(5000), timeout])
+// ... rest of success logic
+} catch (error) {
+set({ isLoading: false })
+throw error
+}
 }
 \`\`\`
 
@@ -212,21 +219,21 @@ Simulate different HTTP error responses:
 
 \`\`\`typescript
 fetchTeams: async () => {
-  set({ isLoading: true })
-  await delay(500)
-  
-  // Simulate different error scenarios
-  const errorType = Math.random()
-  
-  if (errorType < 0.1) {
-    set({ isLoading: false })
-    throw new Error("401: Unauthorized")
-  } else if (errorType < 0.2) {
-    set({ isLoading: false })
-    throw new Error("500: Internal Server Error")
-  }
-  
-  // ... rest of success logic
+set({ isLoading: true })
+await delay(500)
+
+// Simulate different error scenarios
+const errorType = Math.random()
+
+if (errorType < 0.1) {
+set({ isLoading: false })
+throw new Error("401: Unauthorized")
+} else if (errorType < 0.2) {
+set({ isLoading: false })
+throw new Error("500: Internal Server Error")
+}
+
+// ... rest of success logic
 }
 \`\`\`
 
@@ -245,13 +252,13 @@ To handle errors in components, wrap store actions in try-catch:
 
 \`\`\`typescript
 const handleSubmit = async (data: TeamFormData) => {
-  try {
-    await createTeam(data)
-    setShowNotification(true)
-  } catch (error) {
-    console.error("Failed to create team:", error)
-    // Show error toast or message to user
-  }
+try {
+await createTeam(data)
+setShowNotification(true)
+} catch (error) {
+console.error("Failed to create team:", error)
+// Show error toast or message to user
+}
 }
 \`\`\`
 
@@ -267,19 +274,24 @@ This project uses Jest and React Testing Library for unit testing. Tests cover:
 ### Running Tests
 
 \`\`\`bash
+
 # Run all tests
+
 pnpm test
 
 # Run tests in watch mode
+
 pnpm test:watch
 
 # Generate coverage report
+
 pnpm test:coverage
 \`\`\`
 
 ### Test Coverage
 
 The test suite includes:
+
 - Store operations (CRUD, filtering, sorting)
 - Form validation and submission
 - User interactions (clicks, typing, selections)
@@ -289,6 +301,7 @@ The test suite includes:
 ## Accessibility
 
 The application follows WCAG 2.1 guidelines and includes:
+
 - Proper ARIA roles and attributes
 - Keyboard navigation support
 - Screen reader announcements
