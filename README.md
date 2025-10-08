@@ -42,10 +42,10 @@ pnpm test:watch
 # Generate coverage report
 
 pnpm test:coverage
-\`\`\`
 
 ## Project Structure
 
+```
 📁 team-management/
 ├── 📁 app/ # Next.js app directory
 │ ├── layout.tsx # Root layout with theme provider
@@ -74,6 +74,7 @@ pnpm test:coverage
 │ ├── 📁 components/ # Component tests
 │ └── 📁 lib/ # Logic and store tests
 └── 📁 hooks/ # Custom React hooks
+```
 
 ## State Management Approach
 
@@ -131,19 +132,19 @@ All CRUD operations in `teams-store.ts` include:
 - **Loading states**: `isLoading` flag for UI feedback
 - **Success scenarios**: All operations succeed by default
 
-\`\`\`typescript
+```typescript
 // Example: Create team with simulated delay
 createTeam: async (teamData) => {
-set({ isLoading: true })
-await delay(500) // Simulate API call
-const newTeam = { ...teamData, id: `team-${Date.now()}` }
-set((state) => ({
-teams: [...state.teams, newTeam],
-isLoading: false,
-}))
-get().filterAndSortTeams()
-}
-\`\`\`
+  set({ isLoading: true });
+  await delay(500); // Simulate API call
+  const newTeam = { ...teamData, id: `team-${Date.now()}` };
+  set((state) => ({
+    teams: [...state.teams, newTeam],
+    isLoading: false,
+  }));
+  get().filterAndSortTeams();
+};
+```
 
 ### Simulating Failures
 
