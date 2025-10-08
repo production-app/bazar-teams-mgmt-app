@@ -374,7 +374,7 @@ export function EditTeamModal({
             {/* Team Email */}
             <div className="space-y-2">
               <Label htmlFor="email" className="text-sm font-medium">
-                Team Email <span className="text-destructive">*</span>
+                Team Email Address <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="email"
@@ -398,12 +398,16 @@ export function EditTeamModal({
                   {errors.email.message}
                 </p>
               )}
+              <div className="text-xs text-muted-foreground">
+                Everyone in this Team receives an email whenever a message is
+                sent to this email address.
+              </div>
             </div>
 
             {/* Manager Name */}
             <div className="space-y-2">
               <Label htmlFor="managerName" className="text-sm font-medium">
-                Manager Name <span className="text-destructive">*</span>
+                Team Manager <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="managerName"
@@ -466,7 +470,7 @@ export function EditTeamModal({
       <NotificationModal
         open={showNotification}
         onOpenChange={handleNotificationClose}
-        title="Team Updated Successfully"
+        title="Team Updated"
         description="The team has been updated successfully."
       />
     </>

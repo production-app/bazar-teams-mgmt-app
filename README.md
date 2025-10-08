@@ -21,31 +21,44 @@ A comprehensive team management application built with Next.js, React, TypeScrip
 
 ### Installation
 
-\`\`\`bash
+```bash
 
 # Install dependencies
 
-pnpm install
+npm install
 
 # Run development server
 
-pnpm dev
+npm run dev
 
 # Run tests
 
-pnpm test
+npm test
 
 # Run tests in watch mode
 
-pnpm test:watch
+npm test:watch
 
 # Generate coverage report
 
-pnpm test:coverage
+npm test:coverage
+
+```
+
+## Architecture Decision Records (ADR)
+
+### Why Zustand Over Context API
+
+We chose **Zustand** for state management instead of React Context API because it provides better performance through selective subscriptions (components only re-render when their specific slice of state changes), eliminates the need for provider wrapper hell, and offers a simpler API with less boilerplate while maintaining full TypeScript support. Context API would cause unnecessary re-renders across all consuming components whenever any part of the state updates, which becomes problematic with frequent CRUD operations and filtering/sorting actions.
+
+### Why Client-Side Pagination Over Virtualization
+
+We implemented **client-side pagination** (10/20 rows per page) instead of virtualization because our dataset size (500 teams) is manageable for in-memory operations, pagination provides a more familiar UX pattern for data tables, and it simplifies implementation while maintaining excellent performance. Virtualization would add complexity and library dependencies (react-window/react-virtual) that aren't justified for this dataset size, though it would become necessary if scaling to 10,000+ records.
 
 ## Project Structure
 
 ```
+
 📁 team-management/
 ├── 📁 app/ # Next.js app directory
 │ ├── layout.tsx # Root layout with theme provider
@@ -74,6 +87,7 @@ pnpm test:coverage
 │ ├── 📁 components/ # Component tests
 │ └── 📁 lib/ # Logic and store tests
 └── 📁 hooks/ # Custom React hooks
+
 ```
 
 ## State Management Approach
@@ -278,15 +292,15 @@ This project uses Jest and React Testing Library for unit testing. Tests cover:
 
 # Run all tests
 
-pnpm test
+npm test
 
 # Run tests in watch mode
 
-pnpm test:watch
+npm test:watch
 
 # Generate coverage report
 
-pnpm test:coverage
+npm test:coverage
 ```
 
 ### Test Coverage
